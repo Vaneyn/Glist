@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>G-list test OS</title>
+    <style>
+      body {
+        color: gray
+      }
+      .console-text {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+ 
+      <button onclick="runTool('glist')">НАЗАД</button>
+        <button onclick="runTool('clear')">ОЧИСТКА</button>
+    <script>
+  function runTool(toolName) {
+    if(toolName === "clear") {
+      // Удаление iframe и очистка консоли
+      var iframe = document.getElementById("result-iframe");
+      if (iframe) {
+        iframe.remove();
+      }
+      document.getElementById("console").innerHTML = "";
+    }
+    else {
+      // Открытие новой страницы с редактором кода
+      var url = toolName + ".html";
+      window.open(url, "_blank");
+    }
+  }
+</script>
+
+<h1>G-list OS</h1>
+<div>
+  <textarea id="input-data" rows="10" cols="50"></textarea>
+  <br>
+  <button onclick="runCode()">Выполнить код</button>
+</div>
+
+<div id="console"></div>
+
+<script>
+  function runCode() {
+    var input = document.getElementById("input-data").value;
+    // Создание iframe
+    var iframe = document.createElement("iframe");
+    iframe.setAttribute("id", "result-iframe");
+    iframe.style.width = "100%";
+    iframe.style.height = "400px";
+    document.body.appendChild(iframe);
+    // Добавление содержимого в iframe
+    var doc = iframe.contentWindow.document;
+    doc.open();
+    doc.write(input);
+    doc.close();
+    // Вывод содержимого консоли на экран
+    var consoleOutput = "<br>" + input.replace(/\n/g, "<br>");
+    consoleOutput = '<span class="console-text">' + consoleOutput + '</span>';
+//    document.getElementById("console").innerHTML = consoleOutput;
+    // Выполнение JavaScript кода в iframe
+    var scriptTags = iframe.contentWindow.document.getElementsByTagName("script");
+    for (var i = 0; i < scriptTags.length; i++) {
+      var script = scriptTags[i];
+      var scriptText = script.innerHTML;
+      eval(scriptText);
+    }
+  }
+</script>
+</body>
+</html>
