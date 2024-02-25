@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Game Reaction</title>
+  <style>
+    #square {
+      width: 200px;
+      height: 200px;
+      background-color: red;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transition: width 0.5s, height 0.5s;
+    }
+  </style>
+</head>
+<body>
+  <div id="square"></div>
+
+  <script>
+    var score = 0;
+    var startTime = Date.now();
+    var endTime;
+    var serverStatus = '';
+
+    var square = document.getElementById('square');
+    square.addEventListener('click', updateScore);
+
+    setTimeout(endGame, 3000);
+
+    function updateScore() {
+      score++;
+      square.style.width = square.offsetWidth * 0.95 + 'px';
+      square.style.height = square.offsetHeight * 0.95 + 'px';
+      moveSquare();
+    }
+
+    function moveSquare() {
+      var windowWidth = window.innerWidth - square.offsetWidth;
+      var windowHeight = window.innerHeight - square.offsetHeight;
+      var randomLeft = Math.floor(Math.random() * windowWidth);
+      var randomTop = Math.floor(Math.random() * windowHeight);
+
+      square.style.left = randomLeft + 'px';
+      square.style.top = randomTop + 'px';
+    }
+
+    function endGame() {
+      square.removeEventListener('click', updateScore);
+      endTime = Date.now();
+      var gameTime = Math.floor((endTime - startTime) / 1000);
+      square.style.display = 'none';
+
+      var writeURL = localStorage.getItem('writeURL');
+      var readURL = localStorage.getItem('readURL');
+
+      fetch(writeURL + serverStatus + '|' + score)
+        .then(response => response.text())
+        .then(() => {
+          setTimeout(checkResult, Math.random() * 10000);
+        })
+        .catch(error => {
+          console.error('Ошибка при записи результатов:', error);
+        });
+
+      function checkResult() {
+        fetch(readURL)
+          .then(response => response.text())
+          .then(data => {
+            var scores = data.match(/\d+/g);
+            var otherPlayerScore = parseInt(scores.find(s => s !== String(score)));
+
+            if (otherPlayerScore !== undefined) {
+              if (score > otherPlayerScore) {
+                alert('Вы победили!');
+              } else if (score < otherPlayerScore) {
+                alert('Вы проиграли!');
+              } else {
+                alert('Ничья!');
+              }
+            } else {
+              console.log('Результаты еще не записаны. Повторная попытка через 0.5 секунды...');
+              setTimeout(checkResult, 500);
+            }
+          })
+          .catch(error => {
+            console.error('Ошибка при чтении результатов:', error);
+          });
+      }
+
+      setInterval(updateServerStatus, 500);
+
+      function updateServerStatus() {
+        fetch(readURL)
+          .then(response => response.text())
+          .then(data => {
+            serverStatus = data;
+          })
+          .catch(error => {
+            console.error('Ошибка при чтении serverstatus:', error);
+          });
+      }
+    }
+  </script>
+</body>
+</html>
