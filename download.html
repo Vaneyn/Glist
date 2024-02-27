@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Загрузка HTML кода</title>
+    <script>
+        function saveCode() {
+            var name = document.getElementById("name").value;
+            var link = document.getElementById("link").value;
+            
+            // Получить код страницы по ссылке и сохранить в Local Storage
+            // Ниже приведен пример использования fetch API для получения кода страницы
+            
+            fetch(link)
+                .then(response => response.text())
+                .then(data => {
+                    localStorage.setItem(name, data);
+                    displayCodes();
+                })
+                .catch(error => console.log(error));
+        }
+        
+        function deleteCode(name) {
+            localStorage.removeItem(name);
+            displayCodes();
+        }
+        
+        function displayCodes() {
+            var codeContainer = document.getElementById("code-container");
+            codeContainer.innerHTML = "";
+            
+            // Отобразить все сохраненные коды и их названия в виде кнопок
+            
+            for (var i = 0; i < localStorage.length; i++) {
+                var codeName = localStorage.key(i);
+                var codeButton = document.createElement("button");
+                codeButton.innerHTML = codeName;
+                codeButton.addEventListener("click", function() {
+                    var code = localStorage.getItem(this.innerHTML);
+                    execute(code);
+                });
+                
+                var deleteButton = document.createElement("button");
+                deleteButton.innerHTML = "Удалить";
+                deleteButton.addEventListener("click", function() {
+                    var codeName = this.parentElement.firstChild.innerHTML;
+                    deleteCode(codeName);
+                });
+                
+                var codeWrapper = document.createElement("div");
+                codeWrapper.appendChild(codeButton);
+                codeWrapper.appendChild(deleteButton);
+                codeContainer.appendChild(codeWrapper);
+            }
+        }
+        
+        function execute(code) {
+            document.open();
+            document.write(code);
+            document.close();
+        }
+        
+    </script>
+</head>
+<body>
+    <label for="name">Название кода:</label>
+    <input type="text" id="name">
+    
+    <label for="link">Ссылка:</label>
+    <input type="text" id="link">
+    
+    <button onclick="saveCode()">Загрузить</button>
+    
+    <div id="code-container"></div>
+    
+    <script>
+        displayCodes(); // Отобразить сохраненные коды при старте страницы
+    </script>
+</body>
+</html>
