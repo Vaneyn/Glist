@@ -1,7 +1,19 @@
 <!DOCTYPE html>
 <html>
+	<style>
+		body {
+			color: black;
+			background-color: grey;
+		}
+		button {
+		font-size: 20px;
+			color: white;
+			background-color: black;
+		}
+	</style>
 <head>
     <title>Загрузка HTML кода</title>
+<h1>G-list OS apps and data</h1>
     <script>
         function saveCode() {
             var name = document.getElementById("name").value;
@@ -60,16 +72,27 @@
         }
         
     </script>
+
+	<script>
+		function runTool(toolName) {
+			var url = toolName + ".html";
+			window.open(url, "_blank");
+		}
+	</script>
+			<button onclick="runTool('tool7')">НАЗАД</button>
+	<button onclick="runTool('glist')"> ГЛАВНОЕ МЕНЮ</button>
+
 </head>
 <body>
+      <input type="text" id="name">
     <label for="name">Название кода:</label>
-    <input type="text" id="name">
-    
+  
+     <input type="text" id="link">
     <label for="link">Ссылка:</label>
-    <input type="text" id="link">
-    
-    <button onclick="saveCode()">Загрузить</button>
-    
+   
+     <button onclick="saveCode()">Загрузить</button>
+   
+<p>----------------------------------<p/>
     <div id="code-container"></div>
     
     <script>
