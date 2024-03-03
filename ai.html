@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Send POST Request</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            color: gray
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .form-container {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-slider {
+            width: 100%;
+        }
+
+        .form-button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .response-container {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .response-image {
+            max-width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+    	<script>
+		function runTool(toolName) {
+			var url = toolName + ".html";
+			window.open(url, "_blank");
+		}
+	</script>
+			<button onclick="runTool('glist')">НАЗАД</button>
+		
+  
+ 
+  
+    <script>
+        function sendRequest() {
+            var api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDk0MDkwMTcsInVzZXJfaWQiOiI2NWUzODJmNWI2ZDJjN2E0NDZiMDBhMzEifQ.5K8adO-W2QE394YDE_kNJlTYfhdX1v-7sMkBUnAykdE";
+            var url = "https://api.wizmodel.com/sdapi/v1/txt2img";
+            var prompt = document.getElementById('prompt-input').value;
+            var steps = document.getElementById('steps-slider').value;
+
+            var data = JSON.stringify({
+                prompt: prompt,
+                steps: steps
+            });
+
+            $.ajax({
+                url: url,
+                type: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + api_key
+                },
+                data: data,
+                success: function(response) {
+                    if (response.images[0].length > 100) {
+                        // Преобразуем base64-строку в изображение
+                        var img = new Image();
+                        img.src = 'data:image/jpeg;base64,' + response.images[0];
+
+                        // Отображаем изображение на странице
+                        var responseContainer = document.getElementById("response");
+                        responseContainer.innerHTML = '';
+                        responseContainer.appendChild(img);
+                    } else {
+                        // Выводим ответ на экран
+                        document.getElementById("response").innerHTML = JSON.stringify(response);
+                    }
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Send POST Request</h1>
+
+    <div class="form-container">
+        <div class="form-group">
+            <label class="form-label" for="prompt-input">Prompt:</label>
+            <input class="form-input" type="text" id="prompt-input" placeholder="Enter prompt text">
+        </div>
+
+        <div class="form-group">
+            <label class="form-label" for="steps-slider">Steps:</label>
+            <input class="form-slider" type="range" id="steps-slider" min="1" max="1000" value="100">
+            <span id="steps-value">100</span>
+        </div>
+
+        <button class="form-button" onclick="sendRequest()">Send Request</button>
+    </div>
+
+    <div class="response-container">
+        <div id="response"></div>
+        <img class="response-image" id="image-preview" src="" alt="Generated Image">
+    </div>
+
+    <script>
+        var stepsSlider = document.getElementById('steps-slider');
+        var stepsValue = document.getElementById('steps-value');
+
+        stepsSlider.addEventListener('input', function() {
+            stepsValue.textContent = stepsSlider.value;
+        });
+    </script>
+</body>
+</html>
