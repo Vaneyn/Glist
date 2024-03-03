@@ -1,22 +1,30 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Send POST Request</title>
+    <title>Генерация нейросетью</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
-            color: gray
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #f6f6f6;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
             text-align: center;
-        }
-
-        .form-container {
-            max-width: 400px;
-            margin: 0 auto;
         }
 
         .form-group {
@@ -59,23 +67,21 @@
         }
 
         .response-image {
-            width: auto;
             max-width: 100%;
-            max-height: calc(100vh - 250px); /* Высота окна просмотра минус 250px */
-            margin-top: 20px;
+            height: auto;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+
+            .container {
+                max-width: 100%;
+            }
         }
     </style>
-    	<script>
-		function runTool(toolName) {
-			var url = toolName + ".html";
-			window.open(url, "_blank");
-		}
-	</script>
-			<button onclick="runTool('glist')">НАЗАД</button>
-		
-  
  
-  
     <script>
         function sendRequest() {
             var api_key = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE3MDk0MDkwMTcsInVzZXJfaWQiOiI2NWUzODJmNWI2ZDJjN2E0NDZiMDBhMzEifQ.5K8adO-W2QE394YDE_kNJlTYfhdX1v-7sMkBUnAykdE";
@@ -101,6 +107,7 @@
                         // Преобразуем base64-строку в изображение
                         var img = new Image();
                         img.src = 'data:image/jpeg;base64,' + response.images[0];
+                        img.classList.add('response-image');
 
                         // Отображаем изображение на странице
                         var responseContainer = document.getElementById("response");
@@ -119,26 +126,32 @@
     </script>
 </head>
 <body>
-    <h1>Send POST Request</h1>
-
-    <div class="form-container">
+    <div class="container">
+        <h1>Генерация картинок</h1>
+   <script>
+        function runTool(toolName) {
+            var url = toolName + ".html";
+            window.open(url, "_blank");
+        }
+    </script>
+    <button onclick="runTool('glist')">НАЗАД</button>
         <div class="form-group">
             <label class="form-label" for="prompt-input">Prompt:</label>
             <input class="form-input" type="text" id="prompt-input" placeholder="Enter prompt text">
         </div>
 
         <div class="form-group">
-            <label class="form-label" for="steps-slider">Steps:</label>
-            <input class="form-slider" type="range" id="steps-slider" min="1" max="1000" value="100">
+            <label class="form-label" for="steps-slider">Шаги обработки:</label>
+            <input class="form-slider" type="range" id="steps-slider" min="1" max="100000" value="100">
             <span id="steps-value">100</span>
         </div>
 
-        <button class="form-button" onclick="sendRequest()">Send Request</button>
-    </div>
+        <button class="form-button" onclick="sendRequest()">Генерировать</button>
 
-    <div class="response-container">
-        <div id="response"></div>
-        <img class="response-image" id="image-preview" src="" alt="Generated Image">
+        <div class="response-container">
+            <div id="response"></div>
+            <img class="response-image" id="image-preview" src="" alt="Generated Image">
+        </div>
     </div>
 
     <script>
