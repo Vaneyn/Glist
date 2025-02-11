@@ -5,22 +5,58 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Компании - Крупнейшие трансконтинентальные компании</title>
   <style>
-    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
-    header, footer { background-color: #333; color: white; padding: 10px; text-align: center; }
-    nav a { color: white; margin: 0 10px; text-decoration: none; }
-    .container { padding: 20px; text-align: center; }
-    .card {
-      border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin: 10px;
-      display: inline-block; width: 300px; vertical-align: top; cursor: pointer;
-      transition: transform 0.3s;
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
     }
-    .card:hover { transform: scale(1.05); }
-    .card img { width: 100%; height: auto; border-bottom: 1px solid #ccc; margin-bottom: 10px; }
+    header, footer {
+      background-color: #333;
+      color: #fff;
+      padding: 15px;
+      text-align: center;
+    }
+    nav a {
+      color: #fff;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+    .container {
+      padding: 20px;
+      text-align: center;
+    }
+    .card {
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      width: 300px;
+      margin: 15px;
+      display: inline-block;
+      vertical-align: top;
+      cursor: pointer;
+      transition: transform 0.3s;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    .card:hover {
+      transform: scale(1.05);
+    }
+    .card img {
+      width: 100%;
+      border-top-left-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+    .card h3 {
+      margin: 10px 0;
+    }
+    .card p {
+      padding: 0 10px 10px;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>Компании</h1>
+    <h1>Крупнейшие трансконтинентальные компании</h1>
     <nav>
       <a href="index.html">Главная</a>
       <a href="companies.html">Компании</a>
@@ -29,24 +65,27 @@
     </nav>
   </header>
   <div class="container">
-    <div class="card" onclick="showCompany('Компания 1')">
-      <img src="https://via.placeholder.com/300x200?text=Компания+1" alt="Компания 1">
-      <h3>Компания 1</h3>
-      <p>Описание компании 1 с трансконтинентальной деятельностью.</p>
+    <!-- Карточка Apple Inc. -->
+    <div class="card" onclick="showCompany('Apple Inc.')">
+      <img src="https://source.unsplash.com/featured/?apple,technology" alt="Apple Inc.">
+      <h3>Apple Inc.</h3>
+      <p>Apple Inc. — американская технологическая компания, основанная в 1976 году. Известна своими продуктами, такими как iPhone, iPad и Mac, а также постоянными инновациями в области дизайна и технологий.</p>
     </div>
-    <div class="card" onclick="showCompany('Компания 2')">
-      <img src="https://via.placeholder.com/300x200?text=Компания+2" alt="Компания 2">
-      <h3>Компания 2</h3>
-      <p>Описание компании 2 с трансконтинентальной деятельностью.</p>
+    <!-- Карточка Amazon.com Inc. -->
+    <div class="card" onclick="showCompany('Amazon.com Inc.')">
+      <img src="https://source.unsplash.com/featured/?amazon,ecommerce" alt="Amazon.com Inc.">
+      <h3>Amazon.com Inc.</h3>
+      <p>Amazon — глобальная компания, основанная Джеффом Безосом в 1994 году, специализирующаяся на электронной коммерции и облачных вычислениях. Компания расширяет свой бизнес по всему миру, постоянно внедряя новые сервисы.</p>
     </div>
-    <div class="card" onclick="showCompany('Компания 3')">
-      <img src="https://via.placeholder.com/300x200?text=Компания+3" alt="Компания 3">
-      <h3>Компания 3</h3>
-      <p>Описание компании 3 с трансконтинентальной деятельностью.</p>
+    <!-- Карточка Toyota Motor Corporation -->
+    <div class="card" onclick="showCompany('Toyota Motor Corporation')">
+      <img src="https://source.unsplash.com/featured/?toyota,car" alt="Toyota Motor Corporation">
+      <h3>Toyota Motor Corporation</h3>
+      <p>Toyota — японский автопроизводитель, основанный в 1937 году. Известен своим качеством, инновационными технологиями и глобальным присутствием, занимая лидирующие позиции в мировой автомобильной промышленности.</p>
     </div>
   </div>
   <footer>
-    &copy; 2025 Крупнейшие трансконтинентальные компании (Заверач)
+    &copy; 2025 Крупнейшие трансконтинентальные компании
   </footer>
   <script>
     function showCompany(name) {
