@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Компании - Крупнейшие трансконтинентальные компании</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header, footer { background-color: #333; color: white; padding: 10px; text-align: center; }
+    nav a { color: white; margin: 0 10px; text-decoration: none; }
+    .container { padding: 20px; text-align: center; }
+    .card {
+      border: 1px solid #ccc; border-radius: 5px; padding: 10px; margin: 10px;
+      display: inline-block; width: 300px; vertical-align: top; cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .card:hover { transform: scale(1.05); }
+    .card img { width: 100%; height: auto; border-bottom: 1px solid #ccc; margin-bottom: 10px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Компании</h1>
+    <nav>
+      <a href="index.html">Главная</a>
+      <a href="companies.html">Компании</a>
+      <a href="about.html">О нас</a>
+      <a href="contact.html">Контакты</a>
+    </nav>
+  </header>
+  <div class="container">
+    <div class="card" onclick="showCompany('Компания 1')">
+      <img src="https://via.placeholder.com/300x200?text=Компания+1" alt="Компания 1">
+      <h3>Компания 1</h3>
+      <p>Описание компании 1 с трансконтинентальной деятельностью.</p>
+    </div>
+    <div class="card" onclick="showCompany('Компания 2')">
+      <img src="https://via.placeholder.com/300x200?text=Компания+2" alt="Компания 2">
+      <h3>Компания 2</h3>
+      <p>Описание компании 2 с трансконтинентальной деятельностью.</p>
+    </div>
+    <div class="card" onclick="showCompany('Компания 3')">
+      <img src="https://via.placeholder.com/300x200?text=Компания+3" alt="Компания 3">
+      <h3>Компания 3</h3>
+      <p>Описание компании 3 с трансконтинентальной деятельностью.</p>
+    </div>
+  </div>
+  <footer>
+    &copy; 2025 Крупнейшие трансконтинентальные компании (Заверач)
+  </footer>
+  <script>
+    function showCompany(name) {
+      alert("Вы выбрали " + name);
+    }
+  </script>
+</body>
+</html>
